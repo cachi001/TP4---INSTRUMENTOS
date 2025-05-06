@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Scrollbar más fino y sin flechas */
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #bbb895;
+    border-radius: 4px;
+    cursor: pointer;
+}
+

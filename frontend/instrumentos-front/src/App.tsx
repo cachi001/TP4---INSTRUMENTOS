@@ -4,20 +4,24 @@ import DondeEstamos from './components/DondeEstamos';
 import Productos from './components/Productos';
 import DetalleProducto from './components/DetalleProducto';
 import { ProductosProvider } from './context/ProductosContext';
+import GrillaProductos from './components/GrillaProductos';
+import { CategoriasProvider } from './context/CategoriasContext';
 
 function App() {
   return (
-    <ProductosProvider>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/donde-estamos' element={<DondeEstamos />} />
-        <Route path='/productos' element={<Productos />} />
-        <Route path='/detalle' >
-          <Route path=':idproducto' element={<DetalleProducto />} />
-        </Route>
-
-      </Routes>
-    </ProductosProvider>
+    <CategoriasProvider>
+      <ProductosProvider>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/donde-estamos' element={<DondeEstamos />} />
+          <Route path='/productos' element={<Productos />} />
+          <Route path='/detalle' >
+            <Route path=':idproducto' element={<DetalleProducto />} />
+          </Route>
+          <Route path='/grilla-productos' element={<GrillaProductos />}  />
+        </Routes>
+      </ProductosProvider>
+    </CategoriasProvider>
   );
 }
 

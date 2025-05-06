@@ -6,25 +6,28 @@ export const Productos = () => {
 
     const {productos} = useProductos();
 
-
-    productos ? <p>Cargando Productos... </p> : <></>;
-    
     return (
         <div>
             <Header></Header>
 
-            <section className='p-10 grid lg:grid-cols-3 md:grid-col-2 sm:grid-col-1 grid-col-2 gap-4'>
+            <section 
+            className='lg:py-10 lg:px-10 md:px-4 py-10 px-10 gap-4 grid grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] place-items-center'
+            >
 
-                {productos.map((producto, index) =>{
+                {productos!.map((producto, index) =>{
 
                     return(
                     <Link key={index} to={`/detalle/${producto.id}`}>
-                        <div className='W-140 h-60 flex justify-center items-center border-1 p-4 rounded-2xl border-gray-400 shadow-lg gap-10'>
-                            <div className='w-40 rounded-2xl'>
-                                <img src={`/img/${producto.imagen}`} alt="imagen producto" className='w-fit h-40' />
+                        <div className='lg:w-120 md:w-100 min-w-100 h-60 flex justify-center items-center border-1 lg:p-4 p-4 rounded-2xl border-gray-400 shadow-md hover:shadow-xl transition-shadow duration-300 lg:gap-10 md:gap-6 gap-10'>
+                            <div className='lg:w-40 w-30 rounded-2xl flex justify-center'>
+                                {producto.imagen.length > 30 ? (
+                                    <img src={`${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26' />
+                                ): (
+                                    <img src={`/img/${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26' />
+                                )}
                             </div>
                             <div className='w-50 flex flex-col gap-4'>
-                                <span className='text-lg'>{producto.instrumento}</span>
+                                <span className='lg:text-lg md:text-md text-lg'>{producto.instrumento}</span>
                                 <span className='text-2xl'>$ {producto.precio}</span>
                                 {producto.costoEnvio.toLowerCase() === "g" ? 
                                     <div className='flex items-end gap-2'>

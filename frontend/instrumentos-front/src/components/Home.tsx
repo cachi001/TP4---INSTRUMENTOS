@@ -11,7 +11,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 
 export const Home = () => {
 
-    const { productos } = useProductos();
+    const { productos, loading} = useProductos();
 
     return (
         <div>
@@ -37,16 +37,24 @@ export const Home = () => {
                     }}
                     className='w-full'
                 >
-                    {productos.length > 0 ? (
+                    {loading ? (
+                        <div className='h-50 opacity-70 flex items-center justify-center'>
+                            <p className='text-white text-xl font-bold'>Cargando productos...</p>
+                        </div>
+                    ) : productos.length > 0 ? (
                         productos.map((producto, index) => (
                             <SwiperSlide key={index} className='p-10'>
                                 <Link to={`/detalle/${producto.id}`}>
                                     <div className='flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition duration-300'>
-                                        <img
+                                        {producto.imagen.length > 30 ? (                                        <img
+                                            src={`${producto.imagen}`}
+                                            alt={`Imagen de ${producto.instrumento}`}
+                                            className='h-50 object-contain w-full bg-gray-100'
+                                        />):(                                        <img
                                             src={`/img/${producto.imagen}`}
                                             alt={`Imagen de ${producto.instrumento}`}
                                             className='h-50 object-contain w-full bg-gray-100'
-                                        />
+                                        />)}
                                         <div className='py-10 pb-10'>
                                             <h2 className='text-md font-semibold text-center text-[#2B2D42]'>{producto.instrumento}</h2>
                                         </div>
@@ -55,11 +63,9 @@ export const Home = () => {
                             </SwiperSlide>
                         ))
                     ) : (
-                        <SwiperSlide>
                             <div className='h-50 bg-[#312F2F] opacity-70 flex items-center justify-center'>
                                 <p className='text-white text-xl font-bold'>No hay productos disponibles</p>
                             </div>
-                        </SwiperSlide>
                     )}
                 </Swiper>
             </section>
