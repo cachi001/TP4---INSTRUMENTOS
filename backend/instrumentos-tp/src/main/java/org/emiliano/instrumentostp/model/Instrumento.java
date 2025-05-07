@@ -41,4 +41,8 @@ public class Instrumento {
     @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String descripcion;
+
+    @ManyToOne()
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 }
