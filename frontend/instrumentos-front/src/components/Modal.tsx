@@ -11,10 +11,10 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
 
     if (!estadoModal) return null;
 
-    const titulo = modoModal === "crear" ? "Nuevo Instrumento" : modoModal === "editar" ? "Editar Instrumento" : "Eliminar Instrumento"
+    const titulo = modoModal === "crear" ? "Nuevo Instrumento" : modoModal === "editar" ? "Editar Instrumento" : modoModal === "eliminar" ? "Eliminar Instrumento" : "Carrito de Productos"
 
     return (
-        <div className='fixed inset-0 bg-black/30'>
+        <div className='fixed inset-0 bg-black/30 z-100'>
             {modoModal === "crear" ? (
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                     <div className="relative flex items-center justify-center py-6">
@@ -31,7 +31,7 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
                     </div>
                     {children}
                 </div>
-            ):(
+            ): modoModal === "eliminar" ?(
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                 <div className="relative flex items-center justify-center gap-4">
                     <span className="text-xl font-bold">{titulo}</span>
@@ -39,7 +39,15 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
                 </div>
                 {children}
             </div>
-            )}
+            ) :
+            <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
+                <div className="relative flex items-center justify-center py-6">
+                    <span className="text-xl font-bold">{titulo}</span>
+                    <span onClick={cerrarModal} className="absolute right-10 cursor-pointer text-md"> X </span>
+                </div>
+                {children}
+        </div>
+            }
 
         </div>
     )

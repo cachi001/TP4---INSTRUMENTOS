@@ -250,11 +250,11 @@ export const GrillaProductos = () => {
                                     <td className="border-b border-gray-200 py-6 px-4">{producto.instrumento}</td>
                                     <td className="border-b border-gray-200 py-6 px-4">{producto.marca}</td>
                                     <td className="border-b border-gray-200 py-6 px-4">{producto.modelo}</td>
-                                    <td className="border-b border-gray-200 py-6 px-4">
-                                    {producto.imagen.length > 30 ? (
-                                        <img src={`${producto.imagen}`} alt="producto-imagen" className='h-20 w-30 rounded' />
+                                    <td className="border-b border-gray-200 py-6 px-2">
+                                    {producto.imagen.length > 10 ? (
+                                        <img src={`${producto.imagen}`} alt="producto-imagen" className='h-20 w-40 rounded' />
                                     ): (
-                                        <img src={`/img/${producto.imagen}`} alt="producto-imagen" className='h-20 w-20 rounded' />
+                                        <img src={`/img/${producto.imagen}`} alt="producto-imagen" className='h-20 w-40 rounded' />
                                     )}
                                     </td>
                                     <td className="border-b border-gray-200 py-6 px-4">${producto.precio}</td>

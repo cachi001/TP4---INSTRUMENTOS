@@ -20,10 +20,10 @@ export const Productos = () => {
                     <Link key={index} to={`/detalle/${producto.id}`}>
                         <div className='lg:w-110 md:w-100 min-w-100 h-60 flex justify-center items-center border-1 lg:p-4 p-4 rounded-2xl border-gray-400 shadow-md hover:shadow-xl transition-shadow duration-300 lg:gap-10 md:gap-6 gap-10'>
                             <div className='lg:w-40 w-30 rounded-2xl flex justify-center'>
-                                {producto.imagen.length > 30 ? (
-                                    <img src={`${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26' />
+                                {producto.imagen.length > 10 ? (
+                                    <img src={`${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26 rounded-md' />
                                 ): (
-                                    <img src={`/img/${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26' />
+                                    <img src={`/img/${producto.imagen}`} alt="producto-imagen" className='w-fit lg:h-40 md:h-24 h-26 rounded-md' />
                                 )}
                             </div>
                             <div className='w-50 flex flex-col gap-4'>
