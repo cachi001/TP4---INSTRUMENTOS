@@ -14,9 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class PedidoDto {
-
-    private Date fechaPedido;
-    private BigDecimal totalPedido;
-
-    private List<PedidoDetalle> pedidoDetalles;
+    
+    private List<PedidoDetalleDto> pedidoDetalles;
 }

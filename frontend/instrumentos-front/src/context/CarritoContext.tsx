@@ -55,7 +55,9 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
         if (tipo != "restar") {
             setTotalCarrito(prev => prev += precio)
         } else{
-            setTotalCarrito(prev => prev -= precio)
+            if (totalCarrito > 0) {
+                setTotalCarrito(prev => prev -= precio)
+            }
         }
     } 
 
@@ -67,7 +69,7 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
 
         if (index !== -1) {
             const nuevosDetalles = [...carrito.pedidoDetalle];
-            handleCalcularTotal(producto.precio, "sumar")
+            handleCalcularTotal(cantidad * producto.precio, "sumar")
             nuevosDetalles[index].cantidad += cantidad;
             setCarrito({ pedidoDetalle: nuevosDetalles });
         } else {
@@ -156,9 +158,7 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
 
     const comprarProductos = () =>{
         console.log("CREANDO PEDIDO DE COMPRA")
-        const pedido = new Pedido(new Date, carrito.pedidoDetalle)
-
-        pedido.totalPedido = totalCarrito
+        const pedido = new Pedido(carrito.pedidoDetalle)
 
         console.dir(pedido)
 

@@ -9,6 +9,7 @@ import org.emiliano.instrumentostp.model.Instrumento;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoDetalleDto {
+
     private int cantidad;
 
     private Instrumento instrumento;

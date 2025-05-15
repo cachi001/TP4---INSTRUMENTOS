@@ -2,12 +2,11 @@ import { PedidoDetalle } from "./PedidoDetalle"
 
 export class Pedido{
     id?: number
-    fechaPedido: Date
+    fechaPedido?: Date
     totalPedido?: number
     pedidoDetalles: PedidoDetalle[]
 
-    constructor(fechaPedido: Date, pedidoDetalles: PedidoDetalle[]){
-        this.fechaPedido = fechaPedido
+    constructor(pedidoDetalles: PedidoDetalle[]){
         this.pedidoDetalles = pedidoDetalles
     }
 
