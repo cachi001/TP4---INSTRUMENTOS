@@ -1,4 +1,4 @@
-package org.emiliano.instrumentostp.config;
+package org.emiliano.instrumentostp.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState} from 'react'
+import { createContext, ReactNode, useContext, useState, useEffect} from 'react'
 import { PedidoDetalle } from '../classes/PedidoDetalle';
 import { Instrumento } from './ProductosContext';
 import { Pedido } from '../classes/Pedido';
@@ -10,8 +10,6 @@ type Carrito = {
 type ContextType = {
     carrito: Carrito
     agregarProducto: (cantidad: number, producto: Instrumento) => void
-    handleAumentoContadorCarrito: () => void
-    handleDecrementoContadorCarrito: () => void
     totalCarrito: number
     aumentarCantidadProducto: (productoId: number) => void
     restarCantidadProducto: (productoId: number) => void
@@ -20,6 +18,7 @@ type ContextType = {
     comprarProductos: () => void
     pedido: Pedido | undefined
     contadorProductosCarrito: number
+    idPreferencia: string
 }
 
 type ContextProviderType = {
@@ -44,13 +43,13 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
     const [contadorProductosCarrito, setContadorProductosCarrito] = useState<number>(0)
     const [totalCarrito, setTotalCarrito] = useState<number>(0)
     const [pedido, setPedido] = useState<Pedido>()
+    const [idPreferencia, setIdPreferencia] = useState<string>("")
+    
 
-    const handleAumentoContadorCarrito = () =>{
-        setContadorProductosCarrito(prev => prev + 1)
-    }
-    const handleDecrementoContadorCarrito = () =>{
-        contadorProductosCarrito > 0 ? setContadorProductosCarrito(prev => prev - 1) : contadorProductosCarrito
-    }
+    useEffect(() => {
+        setContadorProductosCarrito(carrito.pedidoDetalle.length)
+    }, [carrito]);
+
     const handleCalcularTotal = (precio: number, tipo: string) =>{
         if (tipo != "restar") {
             setTotalCarrito(prev => prev += precio)
@@ -75,7 +74,6 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
         } else {
             const nuevoDetalle = new PedidoDetalle(cantidad, producto);
             setCarrito({ pedidoDetalle: [...carrito.pedidoDetalle, nuevoDetalle] });
-            handleAumentoContadorCarrito();
             handleCalcularTotal(nuevoDetalle.cantidad *  producto.precio, "sumar")
         }
 
@@ -118,7 +116,6 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
 
             return { pedidoDetalle: nuevosDetalles}
         })
-        handleDecrementoContadorCarrito()
         handleCalcularTotal(pedidoDetalle.cantidad * pedidoDetalle.instrumento.precio, "restar")
     }
 
@@ -129,40 +126,53 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
         setTotalCarrito(0)
     }
 
-    const fetchPedido = async (pedido: Pedido) => {
+    const comprarProductos = async() =>{
         try {
-            const response = await fetch(`http://localhost:8080/pedido/crear`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(pedido),
-            })
+            setIdPreferencia("")
+            console.log("CREANDO PEDIDO DE COMPRA")
+            const pedido = new Pedido(carrito.pedidoDetalle)
+    
+            console.dir(pedido)
 
-            if (!response.ok) {
-                throw Error("Error de respuesta al crear el pedido")
-            }
-            const data = await response.json()
+            // 1. Crear el pedido con los pedidoDetalle
+            const responsePedido = await fetch(`http://localhost:8080/pedido/crear`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(pedido),
+                })
+    
+                if (!responsePedido.ok) {
+                    throw Error("Error al crear el pedido")
+                }
+                const dataPedido = await responsePedido.json()
+    
+                setPedido(dataPedido)
+                
+                alert(`El pedido con ID ${dataPedido.id} creado correctamente`);
 
-            setPedido(data)
-            
-            alert(`El pedido con ID ${data.id} se guardo correctamente`);
-            
-            console.log("Creado Correctamente")
-            eliminarProductos()
+                // 2. Crear preferencia MercadoPago con pedido ya creado
+                const responsePreferencia = await fetch(`http://localhost:8080/mp/generar-pago`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataPedido),
+                })
+    
+                if (!responsePreferencia.ok) {
+                    throw Error("Error al crear la preferencia de MercadoPago")
+                }
+                const dataPreferencia = await responsePreferencia.json()
+        
+                const idPreferencia = dataPreferencia.preferenceId
+                
+                setIdPreferencia(idPreferencia)
 
         } catch (error) {
-            console.log("ERROR AL CREAR PEDIDO CATCH", error)
+            console.error("Error en compra:", error);
         }
-    }
-
-    const comprarProductos = () =>{
-        console.log("CREANDO PEDIDO DE COMPRA")
-        const pedido = new Pedido(carrito.pedidoDetalle)
-
-        console.dir(pedido)
-
-        fetchPedido(pedido)
     }
 
     return (
@@ -173,8 +183,7 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
             eliminarProductos, 
             aumentarCantidadProducto, 
             restarCantidadProducto,
-            handleAumentoContadorCarrito, 
-            handleDecrementoContadorCarrito,
+            idPreferencia,
             pedido, 
             totalCarrito, 
             contadorProductosCarrito, 

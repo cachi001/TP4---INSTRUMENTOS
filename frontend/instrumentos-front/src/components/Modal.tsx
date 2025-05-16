@@ -18,7 +18,7 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
             {modoModal === "crear" ? (
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                     <div className="relative flex items-center justify-center py-6">
-                        <span className="text-xl font-bold">{titulo}</span>
+                        <span className="text-2xl tracking-wide font-semibold">{titulo}</span>
                         <span onClick={cerrarModal} className="absolute right-10 cursor-pointer text-md"> X </span>
                     </div>
                     {children}
@@ -26,7 +26,7 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
             ): modoModal === "editar" ? (
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                     <div className="relative flex items-center justify-center py-6">
-                        <span className="text-xl font-bold">{titulo}</span>
+                        <span className="text-2xl tracking-wide font-semibold">{titulo}</span>
                         <span onClick={cerrarModal} className="absolute right-10 cursor-pointer text-md"> X </span>
                     </div>
                     {children}
@@ -34,7 +34,7 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
             ): modoModal === "eliminar" ?(
                 <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                 <div className="relative flex items-center justify-center gap-4">
-                    <span className="text-xl font-bold">{titulo}</span>
+                    <span className="text-2xl tracking-wide font-semibold">{titulo}</span>
                     <span onClick={cerrarModal} className="absolute right-2 cursor-pointer text-md"> X </span>
                 </div>
                 {children}
@@ -42,7 +42,7 @@ export const Modal = ({children, estiloModal, estadoModal, modoModal , cerrarMod
             ) :
             <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${estiloModal}`}>
                 <div className="relative flex items-center justify-center py-6">
-                    <span className="text-xl font-bold">{titulo}</span>
+                    <span className="text-2xl tracking-wide font-semibold">{titulo}</span>
                     <span onClick={cerrarModal} className="absolute right-10 cursor-pointer text-md"> X </span>
                 </div>
                 {children}

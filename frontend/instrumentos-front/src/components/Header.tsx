@@ -2,12 +2,25 @@ import { Link } from "react-router-dom";
 import { useCarrito } from "../context/CarritoContext";
 import { useState } from "react";
 import Modal from "./Modal";
+import MercadoPagoCheckout from "./MercadoPagoCheckout";
 
 
 export const Header = () => {
-    const { carrito, contadorProductosCarrito, aumentarCantidadProducto, restarCantidadProducto, eliminarProducto, eliminarProductos, comprarProductos, totalCarrito} = useCarrito()
+    const { 
+        carrito,
+        contadorProductosCarrito, 
+        aumentarCantidadProducto, 
+        restarCantidadProducto, 
+        eliminarProducto, 
+        eliminarProductos, 
+        comprarProductos, 
+        totalCarrito,
+        idPreferencia
+    } = useCarrito()
+
     const [estadoModal, setEstadoModal] = useState<boolean>(false)
 
+    console.log(idPreferencia)
 
     const abrirModal = () =>{
         setEstadoModal(true)
@@ -35,7 +48,7 @@ export const Header = () => {
                 <div className="flex gap-4">
                     <button onClick={abrirModal} className='rounded-lg px-4 bg-white text-black transition-all shadow-md hover:shadow-xl cursor-pointer'>Carrito 🛒</button>
                     {estadoModal ? (
-                        <Modal cerrarModal={cerrarModal} estadoModal={estadoModal} modoModal="carrito" estiloModal={"h-150 w-200 bg-white overflow-y-scroll"}>
+                        <Modal cerrarModal={cerrarModal} estadoModal={estadoModal} modoModal="carrito" estiloModal={"h-150 w-200 bg-white overflow-y-scroll rounded-xl"}>
                             <div className="flex flex-col items-center justify-start gap-4 h-fit-content py-6">
                             {carrito.pedidoDetalle.length > 0 ? (
                                 <>
@@ -81,8 +94,11 @@ export const Header = () => {
                                         <span className="text-lg font-bold">$ {totalCarrito}</span>
                                     </div>
                                     <div className="flex justify-center pb-6 gap-4">
-                                        <button onClick={comprarProductos} className='border-1 text-lg border-green-600 text-green-600 rounded-lg py-2 px-10 hover:bg-green-600 hover:text-white transition-all cursor-pointer'>Comprar</button>
+                                        <button onClick={comprarProductos} className=' border-1 text-lg border-green-600 text-green-600 rounded-lg py-2 px-10 hover:bg-green-600 hover:text-white transition-all cursor-pointer'>Comprar</button>
                                         <button onClick={eliminarProductos} className='border-1 text-lg border-red-600 text-red-600 rounded-lg py-2 px-10 hover:bg-red-600 hover:text-white transition-all cursor-pointer'>Eliminar</button>
+                                    </div>
+                                    <div className="flex justify-center p-4 gap-4" >
+                                        {idPreferencia && <MercadoPagoCheckout preferenceId={idPreferencia}></MercadoPagoCheckout>}
                                     </div>
                                 </>
                                 ) : (
@@ -98,7 +114,7 @@ export const Header = () => {
                     ): (
                         <></>
                     )}
-                    <span className="bg-white  text-black px-4 py-2 font-bold rounded-md">{contadorProductosCarrito}</span>
+                    <span className="bg-white text-black px-4 py-2 font-bold rounded-md">{contadorProductosCarrito}</span>
                 </div>
             </header>
     )
