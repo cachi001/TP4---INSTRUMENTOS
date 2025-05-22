@@ -1,10 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Tipo de usuario
 export type Usuario = {
     id: number;
     nombreUsuario: string;
-    rol: 'Admin' | 'Operador' | 'Visor';
+    rol: 'ADMIN' | 'OPERADOR' | 'VISOR';
 };
 
 // Tipo del contexto
@@ -29,8 +29,18 @@ type Props = {
     children: ReactNode;
 };
 
+const LOCAL_STORAGE_KEY = 'usuarioSesion';
+
 export const UserProvider = ({ children }: Props) => {
     const [user, setUser] = useState<Usuario | null>(null);
+
+    // Al montar, intentar cargar usuario del localStorage
+    useEffect(() => {
+        const userJson = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (userJson) {
+            setUser(JSON.parse(userJson));
+        }
+    }, []);
 
     // Login con fetch
     const login = async (nombreUsuario: string, clave: string): Promise<boolean> => {
@@ -46,8 +56,8 @@ export const UserProvider = ({ children }: Props) => {
             if (response.ok) {
                 const data: Usuario = await response.json();
                 setUser(data);
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data)); // guardo en localStorage
                 return true;
-                
             } else {
                 return false;
             }
@@ -57,7 +67,10 @@ export const UserProvider = ({ children }: Props) => {
         }
     };
 
-    const logout = () => setUser(null);
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem(LOCAL_STORAGE_KEY); // borro de localStorage
+    };
 
     return (
         <UserContext.Provider value={{ user, login, logout }}>

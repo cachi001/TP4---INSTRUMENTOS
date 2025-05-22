@@ -53,7 +53,7 @@ export const Header = () => {
                     {user ? (
                         <div className="flex items-center justify-center gap-4">
                             <button onClick={logout} className="hover:text-[#000000] bg-[#f3f1df] shadow-md hover:shadow-xl transition-all 2s cursor-pointer px-8 py-2 rounded-sm">Logout</button>
-                            <span className="text-black text-xl font-bold transition-all 2s cursor-pointer">{user.nombreUsuario}</span>
+                            <span className="text-black text-xl font-bold transition-all 2s cursor-pointer">Usuario: {user.nombreUsuario}</span>
                         </div>
                     ): (
                         <Link to={"/login"}>

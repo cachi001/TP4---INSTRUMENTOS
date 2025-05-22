@@ -35,7 +35,7 @@ function App() {
                 </PrivateRoute>
               }/>
               <Route path='/grilla-productos' element={
-                <PrivateRoute requiredRol="ADMIN">
+                <PrivateRoute requiredRol={['ADMIN', 'OPERADOR']}>
                   <GrillaProductos />
                 </PrivateRoute>
               } />

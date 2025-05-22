@@ -1,6 +1,7 @@
 
 import { InstrumentoDto, Instrumento, useProductos } from "../context/ProductosContext"
 import { useCategorias } from "../context/CategoriasContext"
+import { useUser } from "../context/UsuarioContext"
 import Header from "./Header"
 import { useState} from "react"
 import Modal from "./Modal"
@@ -8,6 +9,7 @@ import Modal from "./Modal"
 export const GrillaProductos = () => {
     const { productos, crearProducto, eliminarProducto, modificarProducto } = useProductos();
     const { categorias } = useCategorias();
+    const { user } = useUser();
     const [estadoModal, setEstadoModal] = useState<boolean>(false);
     const [modoModal, setModoModal] = useState<"crear" | "editar" | "eliminar">("crear");
     const [productoSeleccionado, setProductoSeleccionado] = useState<Instrumento | null>(null);
@@ -20,6 +22,7 @@ export const GrillaProductos = () => {
     const [costoEnvio, setCostoEnvio] = useState<string>("");
     const [cantidadVendida, setCantidadVendida] = useState<string>("");
     const [descripcion, setDescripcion] = useState<string>("");
+
 
     const abrirModal = (producto: Instrumento | null = null) => {
         setProductoSeleccionado(producto);
@@ -107,7 +110,7 @@ export const GrillaProductos = () => {
                 <span className="text-2xl tracking-wide font-bold text-[#bbb895]">Lista Instrumentos</span>
                 <button onClick={() =>{setModoModal("crear"), abrirModal()}}  className="shadow-sm px-6 py-2 bg-[#bbb895]  transition-all duration-300 ease-in-out cursor-pointer text-white hover:scale-x-102">Nuevo Producto</button>
             </div>
-            {modoModal === "crear" && estadoModal ? (
+            {modoModal === "crear" && estadoModal && user?.rol === "ADMIN" || "OPERADOR" ? (
                     <Modal estiloModal="h-150 w-200 bg-white overflow-y-scroll" estadoModal={estadoModal} cerrarModal={cerrarModal} modoModal={modoModal}>
                         <form onSubmit={handleCrear} className="flex flex-col items-center gap-4 p-4" >
                                 <div className="flex flex-col gap-2">                                
@@ -164,7 +167,7 @@ export const GrillaProductos = () => {
                                 </div>
                         </form>
                     </Modal>
-                ) : modoModal === "editar" && estadoModal ? (
+                ) : modoModal === "editar" && estadoModal && user?.rol === "ADMIN" || "OPERADOR" ?  (
                     <Modal estiloModal="h-150 w-200 bg-white overflow-y-scroll" estadoModal={estadoModal} cerrarModal={cerrarModal} modoModal={modoModal}>
                         <form onSubmit={handleEditar} className="flex flex-col items-center gap-4 p-4">
                             <div className="flex flex-col gap-2">                                
@@ -221,7 +224,7 @@ export const GrillaProductos = () => {
                             </div>
                         </form>
                     </Modal>
-            ): modoModal === "eliminar" && estadoModal ?(
+            ): modoModal === "eliminar" && estadoModal && user?.rol === "ADMIN" ?(
                 <Modal estiloModal="bg-white py-6 px-10 rounded" estadoModal={estadoModal} cerrarModal={cerrarModal} modoModal={modoModal}>
                         <div className="flex flex-col items-center justify-center gap-4 text-center py-6">
                             <p>¿Estás seguro que querés eliminar este instrumento?</p>
@@ -273,10 +276,20 @@ export const GrillaProductos = () => {
                                         </div>
                                     </td>
                                     <td className="border-b border-gray-200 py-6 px-4">
-                                        <div className="flex gap-4">
-                                            <button className="py-2 px-6 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition-all duration-300 ease-in-out cursor-pointer" onClick={() =>{setModoModal("editar"), abrirModal(producto)}} >Editar</button>
-                                            <button className="py-2 px-6 bg-red-500 text-white rounded-md hover:bg-red-400 transition-all duration-300 ease-in-out cursor-pointer" onClick={() =>{setModoModal("eliminar"), abrirModal(producto)}}>Eliminar</button>
-                                        </div>
+                                        {user?.rol === "ADMIN" ? (
+                                            <div className="flex gap-4">
+                                                <button className="py-2 px-6 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition-all duration-300 ease-in-out cursor-pointer" onClick={() =>{setModoModal("editar"), abrirModal(producto)}} >Editar</button>
+                                                <button className="py-2 px-6 bg-red-500 text-white rounded-md hover:bg-red-400 transition-all duration-300 ease-in-out cursor-pointer" onClick={() =>{setModoModal("eliminar"), abrirModal(producto)}}>Eliminar</button>
+                                            </div>
+                                        ) : user?.rol === "OPERADOR" ? (
+                                            <div className="flex gap-4">
+                                                <button className="py-2 px-6 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition-all duration-300 ease-in-out cursor-pointer" onClick={() =>{setModoModal("editar"), abrirModal(producto)}} >Editar</button>
+                                            </div>
+                                        ): (
+                                            <div>
+                                            </div>
+                                        ) 
+                                        }
                                     </td>
                                 </tr>
                             ))}
