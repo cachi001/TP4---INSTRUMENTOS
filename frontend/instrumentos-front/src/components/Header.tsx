@@ -3,6 +3,7 @@ import { useCarrito } from "../context/CarritoContext";
 import { useState } from "react";
 import Modal from "./Modal";
 import MercadoPagoCheckout from "./MercadoPagoCheckout";
+import { useUser } from "../context/UsuarioContext";
 
 
 export const Header = () => {
@@ -18,6 +19,11 @@ export const Header = () => {
         idPreferencia
     } = useCarrito()
 
+    const {
+        logout,
+        user
+    } = useUser()
+
     const [estadoModal, setEstadoModal] = useState<boolean>(false)
 
     console.log(idPreferencia)
@@ -31,7 +37,7 @@ export const Header = () => {
 
     return (
             <header className="h-20 shadow-sm flex justify-around items-center bg-[#C8C6AF]">
-                <nav className="flex gap-6 text-[#2B2D42] text-xl font-medium">
+                <nav className="flex items-center gap-6 text-[#2B2D42] text-xl font-medium">
                     <Link to={"/"}>
                         <span className="hover:text-[#000000] transition-all 2s cursor-pointer">Home</span>
                     </Link>
@@ -44,6 +50,17 @@ export const Header = () => {
                     <Link to={"/grilla-productos"}>
                         <span className="hover:text-[#000000] transition-all 2s cursor-pointer">Grilla</span>
                     </Link>
+                    {user ? (
+                        <div className="flex items-center justify-center gap-4">
+                            <button onClick={logout} className="hover:text-[#000000] bg-[#f3f1df] shadow-md hover:shadow-xl transition-all 2s cursor-pointer px-8 py-2 rounded-sm">Logout</button>
+                            <span className="text-black text-xl font-bold transition-all 2s cursor-pointer">{user.nombreUsuario}</span>
+                        </div>
+                    ): (
+                        <Link to={"/login"}>
+                            <span className="hover:text-[#000000] bg-[#f3f1df] shadow-md hover:shadow-xl transition-all 2s cursor-pointer px-8 py-2 rounded-sm">Login</span>
+                        </Link>
+                    )}
+
                 </nav>
                 <div className="flex gap-4">
                     <button onClick={abrirModal} className='rounded-lg px-4 bg-white text-black transition-all shadow-md hover:shadow-xl cursor-pointer'>Carrito 🛒</button>
