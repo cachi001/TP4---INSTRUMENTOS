@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { initMercadoPago } from '@mercadopago/sdk-react';
 
-const publicKey = 'TEST-84af154c-b3f7-4d0d-8b87-9b24cda669b3';
+const publicKey = 'APP_USR-16f885c8-7a33-48e3-b141-07feae47af15';
 
 // Inicializás Mercado Pago una sola vez antes de renderizar la app
 initMercadoPago(publicKey, { locale: 'es-AR' });

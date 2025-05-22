@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useProductos } from '../context/ProductosContext'
-import { Header } from './Header'
+import { Header } from '../components/Header'
 import { useState } from 'react';
 import { useCarrito } from '../context/CarritoContext';
 

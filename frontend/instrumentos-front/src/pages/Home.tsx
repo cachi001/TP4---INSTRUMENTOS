@@ -1,4 +1,4 @@
-import Header from './Header';
+import Header from '../components/Header';
 import { useProductos } from '../context/ProductosContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';

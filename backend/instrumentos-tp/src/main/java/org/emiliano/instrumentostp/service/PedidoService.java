@@ -1,6 +1,7 @@
 package org.emiliano.instrumentostp.service;
 
 import org.emiliano.instrumentostp.Dto.PedidoDto;
+import org.emiliano.instrumentostp.enums.EstadoPedido;
 import org.emiliano.instrumentostp.mapper.PedidoDetalleMapper;
 import org.emiliano.instrumentostp.mapper.PedidoMapper;
 import org.emiliano.instrumentostp.model.Pedido;
@@ -33,6 +34,7 @@ public class PedidoService {
         pedido.setPedidoDetalles(listaPedidoDetalles);
         pedido.setTotalPedido(calcularTotalPedido(pedido));
         pedido.setFechaPedido(LocalDateTime.now());
+        pedido.setEstadoPedido(EstadoPedido.PENDIENTE);
 
         return pedidoRepository.save(pedido);
 

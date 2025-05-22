@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.emiliano.instrumentostp.enums.EstadoPedido;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public class Pedido {
 
     @Column(nullable = false)
     private LocalDateTime fechaPedido;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estadoPedido;
 
     @Column(nullable = false)
     private BigDecimal totalPedido;

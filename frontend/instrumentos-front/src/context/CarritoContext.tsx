@@ -153,7 +153,7 @@ export const CarritoProvider = ({children}: ContextProviderType) => {
                 alert(`El pedido con ID ${dataPedido.id} creado correctamente`);
 
                 // 2. Crear preferencia MercadoPago con pedido ya creado
-                const responsePreferencia = await fetch(`http://localhost:8080/mp/generar-pago`, {
+                const responsePreferencia = await fetch(`http://localhost:8080/mp/crear-preferencia`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

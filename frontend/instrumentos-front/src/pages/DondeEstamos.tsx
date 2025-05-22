@@ -1,5 +1,5 @@
-import { Header } from './Header'
-import { Mapa } from './Mapa'
+import { Header } from '../components/Header'
+import { Mapa } from '../components/Mapa'
 
 export const DondeEstamos = () => {
     return (
