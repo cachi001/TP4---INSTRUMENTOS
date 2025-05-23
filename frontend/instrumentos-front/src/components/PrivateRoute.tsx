@@ -11,11 +11,9 @@ export const PrivateRoute = ({ requiredRol, children }: PrivateRouteProps) => {
     const { user } = useUser();
 
     if (!user) {
-        // No está logueado
         return <Navigate to="/login" replace />;
     }
 
-    // Convertimos requiredRol a array para facilitar la comparación
     const rolesPermitidos = Array.isArray(requiredRol) ? requiredRol : [requiredRol];
 
     if (!rolesPermitidos.includes(user.rol)) {

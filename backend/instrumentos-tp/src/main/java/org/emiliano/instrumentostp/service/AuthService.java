@@ -1,6 +1,6 @@
 package org.emiliano.instrumentostp.service;
 
-import org.emiliano.instrumentostp.Dto.UsuarioDto;
+import org.emiliano.instrumentostp.dto.UsuarioDto;
 import org.emiliano.instrumentostp.mapper.UsuarioMapper;
 import org.emiliano.instrumentostp.model.Usuario;
 import org.emiliano.instrumentostp.repository.UsuarioRepository;

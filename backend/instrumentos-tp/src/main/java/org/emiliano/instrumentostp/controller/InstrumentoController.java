@@ -1,6 +1,6 @@
 package org.emiliano.instrumentostp.controller;
 
-import org.emiliano.instrumentostp.Dto.InstrumentoDto;
+import org.emiliano.instrumentostp.dto.InstrumentoDto;
 import org.emiliano.instrumentostp.model.Instrumento;
 import org.emiliano.instrumentostp.repository.InstrumentoRepository;
 import org.emiliano.instrumentostp.service.InstrumentoService;

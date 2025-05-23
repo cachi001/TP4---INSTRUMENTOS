@@ -50,10 +50,19 @@ export const Header = () => {
                     <Link to={"/grilla-productos"}>
                         <span className="hover:text-[#000000] transition-all 2s cursor-pointer">Grilla</span>
                     </Link>
+                    <Link to={"/graficos"}>
+                        <span className="hover:text-[#000000] transition-all 2s cursor-pointer">Graficos</span>
+                    </Link>
+                    <Link to={"/reportes"}>
+                        <span className="hover:text-[#000000] transition-all 2s cursor-pointer">Reportes</span>
+                    </Link>
                     {user ? (
                         <div className="flex items-center justify-center gap-4">
-                            <button onClick={logout} className="hover:text-[#000000] bg-[#f3f1df] shadow-md hover:shadow-xl transition-all 2s cursor-pointer px-8 py-2 rounded-sm">Logout</button>
-                            <span className="text-black text-xl font-bold transition-all 2s cursor-pointer">Usuario: {user.nombreUsuario}</span>
+                            <button onClick={logout} className="hover:text-[#000000] bg-[#f3f1df] shadow-md hover:shadow-xl transition-all 2s cursor-pointer px-4 py-2 rounded-sm">Cerrar Sesion</button>
+                            <div className="flex gap-2">
+                                <span>Usuario: </span>
+                                <span className="text-black font-semibold transition-all 2s cursor-pointer">{user.nombreUsuario}</span>
+                            </div>
                         </div>
                     ): (
                         <Link to={"/login"}>

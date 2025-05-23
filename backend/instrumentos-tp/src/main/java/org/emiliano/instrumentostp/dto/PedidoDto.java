@@ -1,13 +1,9 @@
-package org.emiliano.instrumentostp.Dto;
+package org.emiliano.instrumentostp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.emiliano.instrumentostp.model.PedidoDetalle;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor

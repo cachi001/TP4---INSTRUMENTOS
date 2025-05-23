@@ -1,7 +1,7 @@
 package org.emiliano.instrumentostp.controller;
 
-import org.emiliano.instrumentostp.Dto.UsuarioDto;
-import org.emiliano.instrumentostp.Dto.UsuarioResponseDto;
+import org.emiliano.instrumentostp.dto.UsuarioDto;
+import org.emiliano.instrumentostp.dto.UsuarioResponseDto;
 import org.emiliano.instrumentostp.enums.Rol;
 import org.emiliano.instrumentostp.model.Usuario;
 import org.emiliano.instrumentostp.repository.UsuarioRepository;

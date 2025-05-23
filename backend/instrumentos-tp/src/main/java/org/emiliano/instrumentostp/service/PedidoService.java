@@ -1,6 +1,7 @@
 package org.emiliano.instrumentostp.service;
 
-import org.emiliano.instrumentostp.Dto.PedidoDto;
+import org.emiliano.instrumentostp.dto.PedidoDto;
+import org.emiliano.instrumentostp.dto.PedidoResponseDto;
 import org.emiliano.instrumentostp.enums.EstadoPedido;
 import org.emiliano.instrumentostp.mapper.PedidoDetalleMapper;
 import org.emiliano.instrumentostp.mapper.PedidoMapper;
@@ -56,5 +57,19 @@ public class PedidoService {
         return total;
 
     }
+
+    public List<PedidoResponseDto> contarPedidosAgrupadosPorMes() {
+        return pedidoRepository.contarPedidosAgrupadosPorMesRaw()
+                .stream()
+                .map(row -> {
+                    Integer mes = (Integer) row[0];
+                    Integer anio = (Integer) row[1];
+                    Long cantidad = (Long) row[2];
+                    String mesAnio = mes + "-" + anio;
+                    return new PedidoResponseDto(mesAnio, cantidad);
+                })
+                .toList();
+    }
+
 
 }

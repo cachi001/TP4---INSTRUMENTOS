@@ -1,4 +1,4 @@
-package org.emiliano.instrumentostp.Dto;
+package org.emiliano.instrumentostp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -7,13 +7,15 @@ import { Rechazado } from './pages/Rechazado';
 import { Aprobado } from './pages/Aprobado';
 import { Login } from './pages/Login';  // Importa tu Login
 import { ProductosProvider } from './context/ProductosContext';
-import GrillaProductos from './components/GrillaProductos';
+import { GrillaProductos } from './components/GrillaProductos';
 import { CategoriasProvider } from './context/CategoriasContext';
 import { CarritoProvider } from './context/CarritoContext';
 import { UserProvider } from './context/UsuarioContext';
 import { PrivateRoute } from './components/PrivateRoute';
 import { PublicRoute } from './components/PublicRoute';
 import { AccesoRechazado } from './pages/AccesoRechazado'
+import { Graficos } from './pages/Graficos';
+import { Reporte } from './pages/Reporte';
 
 function App() {
   return (
@@ -37,6 +39,16 @@ function App() {
               <Route path='/grilla-productos' element={
                 <PrivateRoute requiredRol={['ADMIN', 'OPERADOR']}>
                   <GrillaProductos />
+                </PrivateRoute>
+              } />
+              <Route path='/graficos' element={
+                <PrivateRoute requiredRol={['ADMIN', 'OPERADOR']}>
+                  <Graficos />
+                </PrivateRoute>
+              } />
+              <Route path='/reportes' element={
+                <PrivateRoute requiredRol={['ADMIN', 'OPERADOR']}>
+                  <Reporte />
                 </PrivateRoute>
               } />
               <Route path="/aprobado" element={<Aprobado />} />

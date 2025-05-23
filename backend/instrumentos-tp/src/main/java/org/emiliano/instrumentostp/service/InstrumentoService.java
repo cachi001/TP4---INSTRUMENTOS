@@ -1,7 +1,7 @@
 package org.emiliano.instrumentostp.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.emiliano.instrumentostp.Dto.InstrumentoDto;
+import org.emiliano.instrumentostp.dto.InstrumentoDto;
 import org.emiliano.instrumentostp.mapper.InstrumentoMapper;
 import org.emiliano.instrumentostp.model.Categoria;
 import org.emiliano.instrumentostp.model.Instrumento;
